@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Simples</title>
+</head>
+<body>
+    <canvas id="pongCanvas" width="800" height="600" style="border: 5px solid black;"></canvas>
+    <script>
+        const canvas = document.getElementById('pongCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // bolinha
+        let ballX = canvas.width / 2;
+        let ballY = canvas.height - 30;
+        let dx = 8;
+        let dy = -8;
+        const raio = 10;
+
+        // raquete
+        const paddleHeight = 10;
+        const paddleWidth = 75;
+        let paddleX = (canvas.width - paddleWidth) / 2;
+
+        // controle
+        let rightPressed = false;
+        let leftPressed = false;
+
+        // teclas
+        document.addEventListener("keydown", function(event) {
+            if(event.key === "Right" || event.key === "ArrowRight") {
+                rightPressed = true;
+            }
+            else if(event.key === "Left" || event.key === "ArrowLeft") {
+                leftPressed = true;
+            }
+        }, false);
+
+        document.addEventListener("keyup", function(event) {
+            if(event.key === "Right" || event.key === "ArrowRight") {
+                rightPressed = false;
+            }
+            else if(event.key === "Left" || event.key === "ArrowLeft") {
+                leftPressed = false;
+            }
+        }, false);  
+
+        // desenha bola
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(ballX, ballY, raio, 0, Math.PI * 2);
+            ctx.fillStyle = "orange";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // desenha raquete
+        function drawPaddle() {
+            ctx.beginPath();
+            ctx.rect(paddleX, canvas.height - paddleHeight - 5, paddleWidth, paddleHeight);
+            ctx.fillStyle = "blue";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // loop do jogo
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBall();
+            drawPaddle();
+
+            // movimento da bolinha
+            ballX += dx;
+            ballY += dy;
+
+            // colisão nas paredes laterais
+            if(ballX + dx > canvas.width - raio || ballX + dx < raio) {
+                dx = -dx;
+            }
+
+            // colisão no topo
+            if(ballY + dy < raio) {
+                dy = -dy;
+            } 
+            // colisão no fundo
+            else if(ballY + dy > canvas.height - raio) {
+                if(ballX > paddleX && ballX < paddleX + paddleWidth) {
+                    dy = -dy;
+                }
+                else {
+                    alert("GAME OVER");
+                    document.location.reload();
+                }
+            }
+
+            // movimento da raquete
+            if(rightPressed && paddleX < canvas.width - paddleWidth) {
+                paddleX += 14;
+            }
+            else if(leftPressed && paddleX > 0) {
+                paddleX -= 14;
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        // inicia o jogo
+        draw();
+    </script>
+</body>
+</html>
