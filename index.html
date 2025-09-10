@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edudeu - Hornet</title>
+    <style>
+        body { display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 12px; background: #f4f4f6; }
+        canvas { background: white; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+        .label { font-family: Arial, sans-serif; color: #333; font-size: 14px; }
+    </style>
+</head>
+<body>
+<div class="label">Tela</div>
+<canvas id="myCanvas" width="500" height="500" style="border: 5px solid black;"></canvas>
+<script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = 'green';
+    ctx.fillRect(20, 20, 100, 100);
+
+    ctx.beginPath();
+    ctx.arc(220, 70, 50, 0, Math.PI * 2);
+    ctx.fillStyle = 'red';
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.clearRect(50, 50, 40, 40);
+
+    ctx.beginPath();
+    ctx.arc(120, 260, 60, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFEB99';
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.fillStyle = 'black';
+    ctx.arc(95, 245, 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.arc(145, 245, 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = 'brown';
+    ctx.arc(120, 270, 35, 0, Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.fillStyle = '#c49a6c';
+    ctx.fillRect(250, 200, 160, 120);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#7a5a3a';
+    ctx.strokeRect(250, 200, 160, 120);
+
+    ctx.beginPath();
+    ctx.moveTo(250, 200);
+    ctx.lineTo(330, 140);
+    ctx.lineTo(410, 200);
+    ctx.closePath();
+    ctx.fillStyle = '#8b2d2d';
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#4b2f2f';
+    ctx.fillRect(310, 260, 40, 60);
+    ctx.strokeRect(310, 260, 40, 60);
+
+    ctx.fillStyle = '#5a3b2b';
+    ctx.fillRect(18, 330, 4, 120);
+
+    const fx = 30, fy = 340, fw = 120, fh = 80;
+    const stripeW = fw / 3;
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(fx, fy, stripeW, fh);
+    ctx.fillStyle = 'white';
+    ctx.fillRect(fx + stripeW, fy, stripeW, fh);
+    ctx.fillStyle = 'red';
+    ctx.fillRect(fx + 2 * stripeW, fy, stripeW, fh);
+</script>
+</body>
+</html>
